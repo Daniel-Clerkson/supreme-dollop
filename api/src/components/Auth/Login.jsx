@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../API_MODULES/API_ADDRESS";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import bg from "../../assets/bg.png"
 import logo from "../../assets/logo.png";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("vyskkitchen.org@gmail.com");
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [password, setPassword] = useState("");
@@ -47,7 +49,7 @@ export default function LoginPage() {
       
       setTimeout(() => {
         console.log("Redirecting to dashboard...");
-        window.location.href = "/"; // Using regular navigation
+        navigate("/display"); // Using React Router navigate
       }, 2000);
     } catch (error) {
       setError(error.message || "Invalid email or password. Please try again.");
@@ -60,11 +62,24 @@ export default function LoginPage() {
     setIsEditingEmail(!isEditingEmail);
   };
 
+  // Navigation handlers
+  const handleForgotPassword = () => {
+    navigate("/forgot-password");
+  };
+
+  const handleRegister = () => {
+    navigate("/");
+  };
+
+  const handleHelpCenter = () => {
+    navigate("/");
+  };
+
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 bg-white bg-contain bg-repeat`} style={{ backgroundImage: `url(${bg})` }}>
       <div className="w-full max-w-md flex flex-col items-center">
         <div className="mb-8">
-        <img src={logo} className="max-w-32" />
+          <img src={logo} className="max-w-32" alt="Vysk Kitchen Logo" />
         </div>
 
         <h1 className="text-2xl font-semibold text-[#515050] mb-4 text-center">
@@ -158,28 +173,31 @@ export default function LoginPage() {
 
         <p className="text-[#515050] mb-2 text-center">
           Forgot your password?{" "}
-          <a
-            href="/auth/forgot-password"
-            className="text-[#e59a0d] hover:underline"
+          <button
+            onClick={handleForgotPassword}
+            className="text-[#e59a0d] hover:underline cursor-pointer bg-transparent border-none p-0"
           >
             Get Password
-          </a>
+          </button>
         </p>
         <p className="text-[#515050] mb-6 text-center">
           Don't have an account?{" "}
-          <a
-            href="/"
-            className="text-[#e59a0d] hover:underline"
+          <button
+            onClick={handleRegister}
+            className="text-[#e59a0d] hover:underline cursor-pointer bg-transparent border-none p-0"
           >
             Register
-          </a>
+          </button>
         </p>
 
         <p className="text-[#515050] text-sm text-center">
           For further support, you may visit the{" "}
-          <a href="/help" className="text-[#e59a0d] hover:underline">
+          <button
+            onClick={handleHelpCenter}
+            className="text-[#e59a0d] hover:underline cursor-pointer bg-transparent border-none p-0"
+          >
             Help Center
-          </a>{" "}
+          </button>{" "}
           or contact our customer service team.
         </p>
       </div>

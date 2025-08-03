@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "lucide-react": "^0.536.0",
+    "next": "^15.4.5",
+    "nextjs": "^0.0.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "start": "^5.1.0"
   },
   "devDependencies": {

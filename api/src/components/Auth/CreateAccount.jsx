@@ -110,7 +110,7 @@ export default function RegisterPage() {
 
           <p className="text-[#515050] mb-6 text-center">
             Already have an account?{" "}
-            <a href="/auth/login" className="text-[#e59a0d] hover:underline">Login</a>
+            <a onClick={navigate(/login) className="text-[#e59a0d] hover:underline">Login</a>
           </p>
         </form>
 

@@ -5,6 +5,7 @@ import LoginForm from "./components/Auth/Login";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Display from "./components/Display";
 import Mainlayout from "./components/Layout/Mainlayout";
+import NotFoundPage from "./pages/ErrorPage";
 import React from "react";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/admin" element={<AuthPage />} />
         <Route path="/display" element={<Display />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     )
   );

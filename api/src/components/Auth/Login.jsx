@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../API_MODULES/API_ADDRESS";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import bg from "../../assets/bg.png"
 import logo from "../../assets/logo.png";
+import bg from "../../assets/bg.png"
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -26,12 +26,12 @@ export default function LoginPage() {
       credentials: "include",
       body: JSON.stringify(userData),
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || `Login failed (${response.status})`);
     }
-    
+
     return response.json();
   };
 
@@ -41,12 +41,12 @@ export default function LoginPage() {
     setIsSubmitting(true);
     setError("");
     setSuccess("");
-    
+
     try {
       const response = await loginUser({ email, password, rememberMe });
       console.log("Login successful:", response);
       setSuccess("Welcome back! Redirecting...");
-      
+
       setTimeout(() => {
         console.log("Redirecting to dashboard...");
         navigate("/display"); // Using React Router navigate
@@ -76,7 +76,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-4 bg-white bg-contain bg-repeat`} style={{ backgroundImage: `url(${bg})` }}>
+    <div
+      className={`min-h-screen flex flex-col items-center justify-center p-4 bg-white bg-contain bg-repeat`}
+      style={{ backgroundImage: `url(${bg})` }}
+    >
       <div className="w-full max-w-md flex flex-col items-center">
         <div className="mb-8">
           <img src={logo} className="max-w-32" alt="Vysk Kitchen Logo" />
@@ -91,7 +94,9 @@ export default function LoginPage() {
         </p>
 
         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-        {success && <p className="text-green-500 mb-4 text-center">{success}</p>}
+        {success && (
+          <p className="text-green-500 mb-4 text-center">{success}</p>
+        )}
 
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-6">

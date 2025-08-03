@@ -47,7 +47,7 @@ export default function LoginPage() {
       
       setTimeout(() => {
         console.log("Redirecting to dashboard...");
-        window.location.href = "/display"; // Using regular navigation
+        window.location.href = "/"; // Using regular navigation
       }, 2000);
     } catch (error) {
       setError(error.message || "Invalid email or password. Please try again.");

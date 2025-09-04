@@ -124,8 +124,8 @@ export default function ForgotPasswordPage() {
               Remember your password?{' '}
               <button
                 type="button"
-                onClick={() => navigate('/auth/login')}
-                className="text-[#e59a0d] hover:underline"
+                onClick={() => navigate('/login')}
+                className="text-[#e59a0d] hover:underline cursor-pointer"
               >
                 Back to Login
               </button>
@@ -187,7 +187,7 @@ export default function ForgotPasswordPage() {
             <button
               type="button"
               onClick={() => navigate('/login')}
-              className="inline-block py-3 px-6 bg-[#e59a0d] text-white rounded-md hover:bg-opacity-90 transition-colors"
+              className="inline-block py-3 px-6 bg-[#e59a0d] cursor-pointer text-white rounded-md hover:bg-opacity-90 transition-colors"
             >
               Back to Login
             </button>

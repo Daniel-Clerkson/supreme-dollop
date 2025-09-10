@@ -110,16 +110,16 @@ export default function RegisterPage() {
 
           <p className="text-[#515050] mb-6 text-center">
             Already have an account?{" "}
-            <a onClick={() => navigate("/login")} className="text-[#e59a0d] hover:text-9xl hover:underline">Login</a>
+            <a href="./login" className="text-[#e59a0d] hover:underline">Login</a>
           </p>
         </form>
 
         <p className="text-[#515050] text-sm text-center mt-6">
           For further support, you may visit the{" "}
-          <a href="/help" className="text-[#e59a0d] hover:underline">Help Center</a>{" "}
+          <a href="/display" className="text-[#e59a0d] hover:underline">Help Center</a>{" "}
           or contact our customer service team.
         </p>
-      </div>
+   x   </div>
     </div>
   );
 }

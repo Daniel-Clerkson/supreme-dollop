@@ -3,6 +3,7 @@ import { useState } from "react";
 import { User, Loader2, AlertCircle, RefreshCw } from "lucide-react";
 import { API_BASE_URL } from "../../API_MODULES/API_ADDRESS";
 import { useNavigate } from "react-router";
+import Navbar from "./Navbar";
 
 const Display = () => {
   const [loading, setLoading] = useState(false);
@@ -58,6 +59,7 @@ const Display = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg w-full justify-center flex flex-col items-center">
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-3">

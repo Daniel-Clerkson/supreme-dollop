@@ -1,1 +1,10 @@
 @import "tailwindcss";
+@import "";
+
+body{
+    font-family: "Space Grotesk", sans-serif;
+}
+
+button{
+    background-color: #e59a0d;
+}

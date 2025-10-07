@@ -8,6 +8,7 @@ import Mainlayout from "./components/Layout/Mainlayout";
 import NotFoundPage from "./pages/ErrorPage";
 import React from "react";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import "./index.css"
 
 const App = () => {
   const router = createBrowserRouter(

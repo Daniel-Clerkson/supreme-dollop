@@ -1,52 +1,126 @@
-import React from "react";
-import Logo from "../assets/Images/Logo2.png";
-import { FaShoppingCart } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
+import logo from '../assets/logo.png';
 
-const Navbar = () => {
+export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
 
-  const navigate = useNavigate();
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Weddings", path: "/weddings" },
+    { name: "Corporate", path: "/corporate" },
+    { name: "Schools", path: "/schools" },
+    { name: "Shop", path: "/shop" },
+    { name: "Contact", path: "/contact" },
+  ];
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+    setIsMenuOpen(false);
+  };
+
+  const isActive = (path) => activeLink === path;
 
   return (
-    <div className="hidden sm:flex items-center justify-center shadow-md mb-10">
-      <div className="flex justify-between items-center bg-white rounded-2xl mt-10 w-11/12 p-5">
-        <div className="logo">
-          <img src={Logo} alt="" className="" />
+    <nav className="sticky top-4 z-50 mx-4 md:mx-32">
+      <div className="bg-white/95 backdrop-blur-sm shadow-md rounded-2xl px-6 py-5">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center space-x-2 cursor-pointer">
+            <img src={logo} alt="Vysk Catering Logo" width={120} height={40} className="object-contain" />
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.path}
+                href={link.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.path);
+                }}
+                className={`transition-all cursor-pointer ${
+                  isActive(link.path)
+                    ? 'text-[#e59a0d] font-bold'
+                    : 'text-gray-700 hover:text-[#e59a0d]'
+                }`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center space-x-4">
+            {/* Shopping Cart */}
+            <button 
+              className="text-gray-700 hover:text-[#e59a0d] transition-colors relative"
+              aria-label="Shopping cart"
+            >
+              <ShoppingCart size={24} />
+              <span className="absolute -top-2 -right-2 bg-[#e59a0d] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
+                0
+              </span>
+            </button>
+
+            {/* Login Button - Desktop */}
+            <button 
+              className="hidden lg:block bg-[#e59a0d] hover:bg-[#e9ca91] text-white font-semibold px-10 py-2 rounded-lg transition-all"
+              onClick={() => handleLinkClick('/login')}
+            >
+              Login
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMenu}
+              className="lg:hidden text-gray-700 hover:text-[#e59a0d] transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
-        <div className="links flex justify-between items-center w-2/5">
-          <div className="link">
-            <p>Home</p>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isMenuOpen ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="flex flex-col space-y-4 py-4 border-t border-gray-200">
+            {navLinks.map((link) => (
+              <a
+                key={link.path}
+                href={link.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.path);
+                }}
+                className={`transition-all cursor-pointer ${
+                  isActive(link.path)
+                    ? 'text-[#e59a0d] font-bold'
+                    : 'text-gray-700 hover:text-[#e59a0d]'
+                }`}
+              >
+                {link.name}
+              </a>
+            ))}
+            <button 
+              className="bg-[#e59a0d] hover:bg-[#e9ca91] text-white font-semibold px-10 py-2 rounded-lg transition-all w-full"
+              onClick={() => handleLinkClick('/login')}
+            >
+              Login
+            </button>
           </div>
-          <div className="link">
-            <p>Weddings</p>
-          </div>
-          <div className="link">
-            <p>Corporate</p>
-          </div>
-          <div className="link">
-            <p>Schools</p>
-          </div>
-          <div className="link">
-            <p>Cookery Shops</p>
-          </div>
-          <div className="link">
-            <p>Shop</p>
-          </div>
-          <div className="link">
-            <p>Contact</p>
-          </div>
-        </div>
-        <div className="carts flex justify-between items-center w-1/6">
-          <div className="cart">
-            <FaShoppingCart />
-          </div>
-          <div className="cart pt-2 button pb-2 pr-10 pl-10 rounded-lg"
-            onClick={()=>(navigate("/login"))}
-          >Login</div>
         </div>
       </div>
-    </div>
+    </nav>
   );
-};
-
-export default Navbar;
+}

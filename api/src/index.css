@@ -1,10 +1,19 @@
 @import "tailwindcss";
-@import "";
 
 body{
     font-family: "Space Grotesk", sans-serif;
 }
 
-button{
+.button{
     background-color: #e59a0d;
+}
+
+.color{
+    color: #e59a0d;
+}
+
+@font-face {
+    font-family: "Space Grotesk";
+    font-weight: 500;
+    src: url(./SpaceGrotesk_Complete/Fonts/OTF/SpaceGrotesk-Regular.otf) format("woff");
 }

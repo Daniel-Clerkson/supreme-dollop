@@ -80,27 +80,31 @@ export default function HeroSection() {
         <div className="images grid grid-cols-1 md:grid-cols-3 gap-4 grid-rows-6 mx-5 md:mx-20">
           <img
             className="row-span-6 object-cover w-full h-full rounded-2xl"
-            src="./src/assets/Images/grid-1.png"
+            src="https://www.vyskcatering.co.uk/images/home-section-2-img1.png"
             alt="Grid 1"
           />
           <div className="p-3 md:p-5 row-span-2 bg-[#222] text-sm md:text-2xl flex items-center text-white rounded-2xl">
-            Creating Unforgettable Moments, One Dish at a Time. Exceptional Catering for Weddings & Events - Where Taste Meets Elegance
+            Creating Unforgettable Moments, One Dish at a Time. Exceptional
+            Catering for Weddings & Events - Where Taste Meets Elegance
           </div>
           <img
             className="p-3 md:p-5 row-span-4 rounded-2xl w-full h-full"
-            src="./src/assets/Images/grid-3.png"
+            src="https://www.vyskcatering.co.uk/images/home-section-2-img3.png"
             alt="Grid 3"
           />
           <img
             className="p-3 md:p-5 row-span-4 rounded-2xl w-full h-full"
-            src="./src/assets/Images/grid-2.png"
+            src="https://www.vyskcatering.co.uk/images/home-section-2-img2.png"
             alt="Grid 2"
           />
           <div className="p-3 md:p-5 row-span-2 bg-white rounded-2xl text-center flex flex-col justify-between items-center mb-5 text-xs md:text-base">
-            Our wedding day was truly magical, and the food played a huge role in making it unforgettable! Every dish was beautifully presented and absolutely delicious. Thank you for making our special day even more memorable!
+            Our wedding day was truly magical, and the food played a huge role
+            in making it unforgettable! Every dish was beautifully presented and
+            absolutely delicious. Thank you for making our special day even more
+            memorable!
             <span className="inline-flex items-center justify-between text-xs md:text-sm font-black mt-3">
               <img
-                src="./src/assets/Images/grid-2.png"
+                src=""
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -110,6 +114,51 @@ export default function HeroSection() {
             </span>
           </div>
         </div>
+      </section>
+      <section>
+        <div className="text text-center px-4 md:px-10">
+          <p className="text-2xl md:text-4xl font-black my-5">
+            Wholesome Meal Plans for Growing
+          </p>
+          <p className="text-2xl md:text-4xl font-bold my-3">
+            Learners – Because Every Bite Matters!{" "}
+          </p>
+          <button
+            className="bg-[#e59a0d] text-white font-bold py-2 md:py-3 rounded-lg
+          text-[16px] md:text-[18px] my-5 px-6 md:px-10"
+          >
+            Book Now
+          </button>
+        </div>
+        <div className="img flex justify-center">
+          <img
+            src="https://www.vyskcatering.co.uk/images/home-section-4-img.png"
+            className="px-4 md:px-20 rounded-2xl md:rounded-lg"
+            alt=""
+          />
+        </div>
+      </section>
+      <section className="bg-gray-100 flex justify-between items-center px-10">
+        <div className="text">
+          <p className="text-5xl font-black mb-5">
+            Bringing People Together Through the Art of Food
+          </p>
+          <p className="text-gray-700">
+            At Vysk, we believe that food is more than just sustenance – it's an
+            experience that brings people together and creates lasting memories.
+            With a passion for flavor, elegance, and excellence, we specialize
+            in crafting unforgettable culinary moments for every occasion.
+          </p>
+          <button className="bg-[#e59a0d] text-white font-bold py-2 cursor-pointer hover:transform-[translate(-10px)] hover:w-48 md:py-3 rounded-lg text-[16px] md:text-[18px] my-5 px-6 md:px-10">
+            About Us
+          </button>
+        </div>
+        <div className="img p-5">
+          <img src="https://www.vyskcatering.co.uk/images/home-section-5-img.png" alt="" />
+        </div>
+      </section>
+      <section>
+        <img src="https://www.vyskcatering.co.uk/images/home-section-6-img.png" alt="" />
       </section>
     </>
   );

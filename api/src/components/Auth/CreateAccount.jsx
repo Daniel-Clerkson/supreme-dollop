@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
 
   const createUser = async (userData) => {
-    const response = await fetch(`${API_BASE_URL}/users/register`, {
+    const response = await fetch(`${API_BASE_URL}/users/register/initiate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,18 +35,12 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
 
-    if (!email || !password) {
-      setError("Email and password are required");
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const newUser = await createUser({ email, password });
+      const newUser = await createUser({ email });
       setSuccess(`Welcome ${newUser.email || "aboard"}! Account created successfully.`);
       setEmail("");
-      setPassword("");
       localStorage.setItem("userEmail", newUser.email);
       setTimeout(() => {
         navigate("/login");

@@ -4,14 +4,6 @@ body{
     font-family: "Space Grotesk", sans-serif;
 }
 
-.button{
-    background-color: #e59a0d;
-}
-
-.color{
-    color: #e59a0d;
-}
-
 @font-face {
     font-family: "Space Grotesk";
     font-weight: 500;

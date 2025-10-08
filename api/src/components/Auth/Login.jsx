@@ -68,7 +68,7 @@ export default function LoginPage() {
   };
 
   const handleRegister = () => {
-    navigate("/");
+    navigate("/create-account");
   };
 
   const handleHelpCenter = () => {

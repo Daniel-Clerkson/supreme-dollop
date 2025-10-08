@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,7 +9,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Weddings", path: "/weddings" },
+    { name: "Weddings", path: "/wedding" },
     { name: "Corporate", path: "/corporate" },
     { name: "Schools", path: "/schools" },
     { name: "Shop", path: "/shop" },
@@ -19,13 +20,15 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  
   const handleLinkClick = (path) => {
     setActiveLink(path);
     setIsMenuOpen(false);
   };
-
+  
   const isActive = (path) => activeLink === path;
-
+  
+  const navigate = useNavigate();
   return (
     <nav className="sticky top-4 z-50 mx-4 md:mx-32">
       <div className="bg-white/95 backdrop-blur-sm shadow-md rounded-2xl px-6 py-5">
@@ -40,10 +43,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.path}
-                href={link.path}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.path);
+                onClick={() => {handleLinkClick(link.path); navigate(link.path);
                 }}
                 className={`transition-all cursor-pointer ${
                   isActive(link.path)
@@ -71,8 +71,8 @@ export default function Navbar() {
 
             {/* Login Button - Desktop */}
             <button 
-              className="hidden lg:block bg-[#e59a0d] hover:bg-[#e9ca91] text-white font-semibold px-10 py-2 rounded-lg transition-all"
-              onClick={() => handleLinkClick('/login')}
+              className="hidden lg:block bg-[#e59a0d] hover:bg-[#e9ca91] cursor-pointer text-white font-semibold px-10 py-2 rounded-lg transition-all"
+              onClick={() => navigate('/login')}
             >
               Login
             </button>
@@ -96,13 +96,9 @@ export default function Navbar() {
         >
           <div className="flex flex-col space-y-4 py-4 border-t border-gray-200">
             {navLinks.map((link) => (
-              <a
+              <p
                 key={link.path}
-                href={link.path}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.path);
-                }}
+                onClick={() => navigate(link.path)}
                 className={`transition-all cursor-pointer ${
                   isActive(link.path)
                     ? 'text-[#e59a0d] font-bold'
@@ -110,11 +106,11 @@ export default function Navbar() {
                 }`}
               >
                 {link.name}
-              </a>
+              </p>
             ))}
             <button 
-              className="bg-[#e59a0d] hover:bg-[#e9ca91] text-white font-semibold px-10 py-2 rounded-lg transition-all w-full"
-              onClick={() => handleLinkClick('/login')}
+              className="bg-[#e59a0d] hover:bg-[#e9ca91] cursor-pointer text-white font-semibold px-10 py-2 rounded-lg transition-all w-full"
+              onClick={() => navigate('/login')}
             >
               Login
             </button>

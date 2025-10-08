@@ -44,7 +44,7 @@ export default function Wedding() {
             <div>
               <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-3xl h-96 flex items-center justify-center">
                 <img
-                  src="https://www.vyskcatering.co.uk/images/wedding-section2-img2.png"
+                  src="../Images/couple-1.png"
                   className="w-full h-full"
                 />
               </div>
@@ -75,7 +75,7 @@ export default function Wedding() {
             <div className="order-1 md:order-2">
               <div className="bg-gradient-to-br from-orange-50 to-rose-50 rounded-3xl h-96 flex items-center justify-center">
                 <img
-                  src="https://www.vyskcatering.co.uk/images/wedding-section2-img1.png"
+                  src="../Images/couple-2.png"
                   className="w-full h-full"
                 />
               </div>

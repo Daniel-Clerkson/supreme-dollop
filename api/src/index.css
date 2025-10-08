@@ -9,3 +9,42 @@ body{
     font-weight: 500;
     src: url(./SpaceGrotesk_Complete/Fonts/OTF/SpaceGrotesk-Regular.otf) format("woff");
 }
+
+@import "tailwindcss";
+
+body{
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.bg-btn{
+  background: #E59A0D
+}
+
+.bg-img{
+  background-image: url("../src/assets/Images/Hero.png");
+  opacity: 0.02;
+}
+
+.bg-img2{
+  background-image: url("../src/assets/Images/Hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.text-link{
+  color: #9e510a;
+}
+
+.border{
+  border: 1px solid darkgray;
+}
+
+.border-2{
+  border: .5px solid #D1D1D1
+}
+
+.bg{
+  background: #EEEEF1;
+  height: 100vh;
+}

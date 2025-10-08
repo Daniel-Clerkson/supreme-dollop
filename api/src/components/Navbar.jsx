@@ -24,6 +24,7 @@ export default function Navbar() {
   const handleLinkClick = (path) => {
     setActiveLink(path);
     setIsMenuOpen(false);
+    navigate(path);
   };
   
   const isActive = (path) => activeLink === path;
@@ -98,7 +99,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <p
                 key={link.path}
-                onClick={() => navigate(link.path)}
+                onClick={() => handleLinkClick(link.path)}
                 className={`transition-all cursor-pointer ${
                   isActive(link.path)
                     ? 'text-[#e59a0d] font-bold'

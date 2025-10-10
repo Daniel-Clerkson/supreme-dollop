@@ -1,5 +1,5 @@
 import AuthPage from "./pages/AuthenticationPage";
-// import CreateUserForm from "./components/Auth/AuthHeroWelcome";
+import CreateUserForm from "./components/Auth/AuthHeroWelcome";
 import LoginForm from "./components/Auth/AuthHeroLogin";
 import ForgotPasswordForm from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
@@ -7,8 +7,13 @@ import Home from "./pages/HomePage";
 import Mainlayout from "./components/Layout/Mainlayout";
 import NotFoundPage from "./pages/ErrorPage";
 import React from "react";
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import "./index.css"
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import "./index.css";
 import Wedding from "./components/Wedding/Wedding";
 import Corporate from "./components/Corporate/Corporate";
 import Schools from "./components/Schools/School";
@@ -36,7 +41,7 @@ const App = () => {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/admin" element={<AuthPage />} />
         <Route path="/terms-condition" element={<Privacy />} />
-        {/* <Route path="/create-account" element={<CreateUserForm />} /> */}
+        <Route path="/create-account" element={<CreateUserForm />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>

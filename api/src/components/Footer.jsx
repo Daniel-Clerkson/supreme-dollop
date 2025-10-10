@@ -1,6 +1,7 @@
 import React from 'react';
 import { Instagram, Facebook, Globe, Youtube } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -20,18 +21,18 @@ export default function Footer() {
               Bringing people together through flavour, warmth, and unforgettable experiences.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.instagram.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
+              <Link to="https://www.instagram.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
                 <Instagram size={18} />
-              </a>
-              <a href="https://www.facebook.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
+              </Link>
+              <Link to="https://www.facebook.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
                 <Facebook size={18} />
-              </a>
-              <a href="https://www.google.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
+              </Link>
+              <Link to="https://www.google.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
                 <Globe size={18} />
-              </a>
-              <a href="https://www.youtube.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
+              </Link>
+              <Link to="https://www.youtube.com" target='blank' className="w-10 h-10 rounded-full border-2 border-orange-400 flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-colors">
                 <Youtube size={18} />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -39,12 +40,12 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate("../"))}>Home</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././contact"))}>About Us</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././wedding"))}>Weddings</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././corporate"))}>Corporate</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././schools"))}>Schools</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././shop"))}>Shop</a></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate("../"))}>Home</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././contact"))}>About Us</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././wedding"))}>Weddings</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././corporate"))}>Corporate</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././schools"))}>Schools</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././shop"))}>Shop</Link></li>
             </ul>
           </div>
 
@@ -52,10 +53,10 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold text-gray-800 mb-6">Legals</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Terms & Condition</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Allergens and Dietary Disclaimer</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Refund and Cancellation Policy</a></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Privacy Policy</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Terms & Condition</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Allergens and Dietary Disclaimer</Link></li>
+              <li><Link to="#" className="text-gray-600 hover:text-orange-500 transition-colors" onClick={()=>(navigate(".././terms-condition"))}>Refund and Cancellation Policy</Link></li>
             </ul>
           </div>
 
@@ -66,11 +67,11 @@ export default function Footer() {
               <p className="font-medium">London UK</p>
               <p>
                 Email:<br />
-                <a href="mailto:info@vyskcatering.co.uk" className="text-orange-500 hover:underline">
+                <Link to="mailto:info@vyskcatering.co.uk" className="text-orange-500 hover:underline">
                   info@vyskcatering.co.uk
-                </a>
+                </Link>
               </p>
-              <a href='tel:0208194211'>Phone: 0208194211</a>
+              <Link to='tel:0208194211'>Phone: 0208194211</Link>
             </div>
           </div>
         </div>

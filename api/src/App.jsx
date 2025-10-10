@@ -1,5 +1,5 @@
 import AuthPage from "./pages/AuthenticationPage";
-import CreateUserForm from "./components/Auth/AuthHeroWelcome";
+// import CreateUserForm from "./components/Auth/AuthHeroWelcome";
 import LoginForm from "./components/Auth/AuthHeroLogin";
 import ForgotPasswordForm from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
@@ -16,6 +16,7 @@ import Shop from "./components/Shop/Shop";
 import Contact from "./components/Contact/Contact";
 import Verify from "./components/Auth/AuthHeroVerify";
 import Privacy from "./pages/Legal Page/Privacy";
+import ProductPage from "./components/Shop/Product";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -32,9 +33,11 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         <Route path="/reset" element={<ResetPassword />} />
+        <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/admin" element={<AuthPage />} />
         <Route path="/terms-condition" element={<Privacy />} />
-        <Route path="/create-account" element={<CreateUserForm />} />
+        {/* <Route path="/create-account" element={<CreateUserForm />} /> */}
+
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )

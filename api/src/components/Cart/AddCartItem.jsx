@@ -1,207 +1,64 @@
-import React, { useState } from 'react';
-import { ShoppingCart, Package, DollarSign, PlusCircle } from 'lucide-react'; // Import Lucide icons
-import { API_BASE_URL } from '../../../API_MODULES/API_ADDRESS';
-// Main App component to host the AddCartItemForm
-function App() {
+// src/components/CartDrawer.jsx
+import React from "react";
+import { useCart } from "./CartFunctionality";
+import { Heart } from "lucide-react";
+
+export default function CartDrawer({ open, onClose }) {
+  const { items, totalItems, totalPrice, updateQty, removeFromCart, clearCart } = useCart();
+
+  if (!open) return null;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-teal-200 p-4 font-inter">
-      <AddCartItemForm />
+    <div className="fixed inset-0 z-60">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <aside className="absolute right-0 top-0 h-full w-full sm:w-96 bg-white shadow-lg p-4 overflow-auto" role="dialog" aria-modal="true" aria-label="Shopping cart">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Your Cart ({totalItems})</h3>
+          <button onClick={onClose} className="text-gray-600" aria-label="Close cart">Close</button>
+        </div>
+
+        {items.length === 0 ? (
+          <div className="py-20 text-center text-gray-500">Your cart is empty.</div>
+        ) : (
+          <>
+            <ul className="space-y-4">
+              {items.map((item) => (
+                <li key={item._id} className="flex gap-3 items-center">
+                  <img src={item.image?.[0]?.url || item.image?.[0] || ""} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold">{item.name}</div>
+                        <div className="text-sm text-gray-500">₦{item.price}</div>
+                      </div>
+                      <button onClick={() => removeFromCart(item._id)} className="text-sm text-red-500">Remove</button>
+                    </div>
+
+                    <div className="mt-2 flex items-center gap-2">
+                      <button onClick={() => updateQty(item._id, (item.qty || 1) - 1)} className="px-2 py-1 border rounded" aria-label={`Decrease quantity for ${item.name}`}>-</button>
+                      <div className="px-3" aria-live="polite">{item.qty}</div>
+                      <button onClick={() => updateQty(item._id, (item.qty || 1) + 1)} className="px-2 py-1 border rounded" aria-label={`Increase quantity for ${item.name}`}>+</button>
+                      <div className="ml-auto font-semibold">₦{((item.price || 0) * (item.qty || 0)).toFixed(2)}</div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 border-t pt-4">
+              <div className="flex justify-between mb-3">
+                <span className="text-gray-600">Total</span>
+                <span className="font-bold">₦{totalPrice.toFixed(2)}</span>
+              </div>
+
+              <div className="flex gap-3">
+                <button onClick={() => { /* placeholder checkout */ }} className="flex-1 bg-[#e59d0a] text-white py-2 rounded font-semibold">Checkout</button>
+                <button onClick={() => clearCart()} className="px-4 py-2 border rounded">Clear</button>
+              </div>
+            </div>
+          </>
+        )}
+      </aside>
     </div>
   );
 }
-
-// AddCartItemForm component
-function AddCartItemForm() {
-  const [productId, setProductId] = useState('');
-  const [quantity, setQuantity] = useState(1); // Default quantity to 1
-  const [price, setPrice] = useState('');
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // 'success', 'error', or ''
-  const [loading, setLoading] = useState(false);
-
-  // Define your API endpoint for adding cart items
-
-  // Handles form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage(''); // Clear previous messages
-    setMessageType('');
-    setLoading(true);
-
-    // Basic validation
-    if (!productId || quantity <= 0 || price <= 0) {
-      setMessage('Please ensure Product ID is entered, and Quantity/Price are greater than 0.');
-      setMessageType('error');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(`${API_BASE_URL}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          productId: productId,
-          quantity: parseInt(quantity, 10), // Ensure quantity is an integer
-          price: parseFloat(price), // Ensure price is a float
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setMessage(data.message || 'Item added to cart successfully!');
-        setMessageType('success');
-        setProductId('');
-        setQuantity(1); // Reset quantity
-        setPrice('');
-      } else {
-        const errorData = await response.json();
-        setMessage(errorData.message || 'Failed to add item to cart. Please try again.');
-        setMessageType('error');
-      }
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-      setMessage('An error occurred. Please check your network connection and try again.');
-      setMessageType('error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
-      {/* Header section with icon and title */}
-      <div className="flex flex-col items-center mb-8">
-        <div className="bg-teal-600 p-3 rounded-full mb-4 shadow-md">
-          <ShoppingCart className="w-8 h-8 text-white" /> {/* Lucide ShoppingCart icon */}
-        </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Add Item to Cart</h2>
-        <p className="text-gray-500 text-center">Enter details for the item you want to add</p>
-      </div>
-
-      {/* Form section */}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Product ID Input */}
-        <div>
-          <label htmlFor="product-id" className="block text-sm font-medium text-gray-700 mb-1">
-            Product ID
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Package className="w-5 h-5 text-gray-400" /> {/* Lucide Package icon */}
-            </div>
-            <input
-              type="text"
-              id="product-id"
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-              placeholder="e.g., PROD123"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        {/* Quantity Input */}
-        <div>
-          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-1">
-            Quantity
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <PlusCircle className="w-5 h-5 text-gray-400" /> {/* Lucide PlusCircle icon */}
-            </div>
-            <input
-              type="number"
-              id="quantity"
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-              placeholder="e.g., 1"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              min="1"
-              required
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        {/* Price Input */}
-        <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
-            Price
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <DollarSign className="w-5 h-5 text-gray-400" /> {/* Lucide DollarSign icon */}
-            </div>
-            <input
-              type="number"
-              id="price"
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-              placeholder="e.g., 29.99"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              step="0.01" // Allow decimal values for price
-              min="0.01"
-              required
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-gradient-to-r from-teal-600 to-green-600 hover:from-teal-700 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out"
-          disabled={loading}
-        >
-          {loading ? (
-            <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-          ) : (
-            'Add to Cart'
-          )}
-        </button>
-      </form>
-
-      {/* Message display */}
-      {message && (
-        <div
-          className={`mt-6 p-4 rounded-lg flex items-center ${
-            messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-          }`}
-        >
-          {messageType === 'success' ? (
-            <CheckCircle className="h-6 w-6 mr-3" />
-          ) : (
-            <XCircle className="h-6 w-6 mr-3" />
-          )}
-          <p className="text-sm font-medium">{message}</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default App;

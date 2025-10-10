@@ -104,7 +104,7 @@ export default function HeroSection() {
             memorable!
             <span className="inline-flex items-center justify-between text-xs md:text-sm font-black mt-3">
               <img
-                src=""
+                src="./Images/couple-1.png"
                 width={40}
                 height={40}
                 className="rounded-full"

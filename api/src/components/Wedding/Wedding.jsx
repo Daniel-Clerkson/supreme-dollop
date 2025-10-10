@@ -6,7 +6,7 @@ import Footer from "../Footer";
 export default function Wedding() {
   return (
     <>
-      <Navbar />
+      <Navbar onOpenCart={() => setCartOpen(true)} />
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black"></div>
         <div className="absolute inset-0 bg-[url('https://www.vyskcatering.co.uk/images/home-section-2-img2.png')] bg-cover bg-center opacity-90"></div>

@@ -15,7 +15,7 @@ import Footer from "../Footer";
 export default function Schools() {
   return (
     <>
-      <Navbar />
+      <Navbar onOpenCart={() => setCartOpen(true)} />
       <section className="relative min-h-screen flex overflow-hidden">
         <div className="relative z-10 px-6 py-5 flex flex-col md:flex-row items-center justify-around w-full">
           <div>

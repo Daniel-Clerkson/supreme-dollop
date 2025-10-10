@@ -15,7 +15,7 @@ export default function Contact() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onOpenCart={() => setCartOpen(true)} />
       <section className="relative min-h-screen overflow-hidden">
         {/* Background Video */}
         <div className="absolute inset-0">

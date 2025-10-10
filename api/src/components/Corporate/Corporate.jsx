@@ -15,8 +15,8 @@ export default function Corporate() {
   return (
     <>
       <Navbar onOpenCart={() => setCartOpen(true)} />
-      <div className="min-h-screen bg-white">
-        <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="min-h-screen bg-white ">
+        <section className="h-screen w-full flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-10 bg-black/50"></div>
           <img className="absolute inset-0 text-transparent w-full h-full bg-[url('https://www.vyskcatering.co.uk/images/corporate-hero.png')] bg-cover bg-center" />
 

@@ -68,14 +68,14 @@ export default function Navbar({ onOpenCart }) {
             >
               <ShoppingCart size={25} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-1 rounded-full">
+                <span className="absolute -top-2 -right-2 bg-[#e59a0d] text-white text-xs px-1 rounded-full">
                   {totalItems}
                 </span>
               )}
             </button>
 
             <Link to="/login" aria-label="Login">
-              <button className="text-white font-semibold px-4 py-2 rounded-lg bg-orange-500 hover:scale-105 transition-all duration-300">
+              <button className="text-white font-semibold px-4 py-2 rounded-lg bg-[#e59a0d] hover:scale-105 transition-all duration-300">
                 Login
               </button>
             </Link>
@@ -90,7 +90,7 @@ export default function Navbar({ onOpenCart }) {
             >
               <ShoppingCart size={18} onClick={openCart} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                <span className="absolute -top-2 -right-2 bg-[#e59a0d] text-white text-xs px-2 py-0.5 rounded-full font-semibold">
                   {totalItems}
                 </span>
               )}

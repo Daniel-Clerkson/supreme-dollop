@@ -78,7 +78,6 @@ export default function ProductPage() {
   if (loading) {
     return (
       <>
-      <Navbar onOpenCart={() => setCartOpen(true)} />
       <main className="container mx-auto px-4 py-20 text-center text-gray-600">Loading product…</main>
         <Footer />
       </>

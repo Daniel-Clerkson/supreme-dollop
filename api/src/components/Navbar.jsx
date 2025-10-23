@@ -74,11 +74,19 @@ export default function Navbar({ onOpenCart }) {
               )}
             </button>
 
-            <Link to="/login" aria-label="Login">
+            {localStorage.getItem("isLoggedIn") ? (
+              <Link to="/profile" aria-label="Login">
+                <button className="text-white font-semibold px-4 py-2 rounded-full bg-[#e59a0d] hover:scale-105 transition-all duration-300">
+                  User
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
               <button className="text-white font-semibold px-4 py-2 rounded-lg bg-[#e59a0d] hover:scale-105 transition-all duration-300">
                 Login
               </button>
-            </Link>
+              </Link>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -186,11 +194,19 @@ export default function Navbar({ onOpenCart }) {
           </Link>
 
           <div className="flex items-center justify-between pt-2">
-            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-              <button className="bg-white text-[#e59a0d] font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 hover:text-white transition-all duration-300">
-                Login
-              </button>
-            </Link>
+            {localStorage.getItem("isLoggedIn") ? (
+              <Link to="/profile" aria-label="Login">
+                <button className="bg-white font-semibold px-4 py-2 rounded-full text-[#e59a0d] hover:scale-105 transition-all duration-300">
+                  User
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button className="bg-white font-semibold px-4 py-2 rounded-lg text-[#e59a0d] hover:scale-105 transition-all duration-300">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -22,6 +22,8 @@ import Contact from "./components/Contact/Contact";
 import Verify from "./components/Auth/AuthHeroVerify";
 import Privacy from "./pages/Legal Page/Privacy";
 import ProductPage from "./components/Shop/Product";
+import AccountPage from "./pages/ProfilePage";
+import AuthHeroProfile from "./components/Auth/AuthHeroProfile";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -40,6 +42,8 @@ const App = () => {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/admin" element={<AuthPage />} />
+        <Route path="/create-profile" element={<AuthHeroProfile />} />
+        <Route path="/profile" element={<AccountPage />} />
         <Route path="/terms-condition" element={<Privacy />} />
         <Route path="/create-account" element={<CreateUserForm />} />
 

@@ -83,7 +83,6 @@ export default function Shop() {
 
   return (
     <>
-      <Navbar onOpenCart={() => setCartOpen(true)} />
         <div className=" px-6 py-8 bg-gradient-to-b from-white to-white/95">
         <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
           <div className="max-w-xl">

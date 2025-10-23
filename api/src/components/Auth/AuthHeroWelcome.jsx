@@ -5,11 +5,12 @@ import Google from "../../assets/Images/google.png";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../API_MODULES/API_ADDRESS";
 import { useState } from "react";
-
+import {ToastContainer, toast} from "react-toastify"
 
 function AuthHeroWelcome() {
   
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,7 +18,7 @@ function AuthHeroWelcome() {
   // Function to make POST request
   async function postData(url, data) {
     try {
-      const response = await fetch(`${API_BASE_URL}/users/register/initiate`, {
+      const response = await fetch(`${API_BASE_URL}/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +43,7 @@ function AuthHeroWelcome() {
 
   // Function to create user
   const createUser = async (userData) => {
-    return await postData(`${API_BASE_URL}/users/register/initiate`, userData);
+    return await postData(`${API_BASE_URL}/users/signup`, userData);
   };
 
   // Form submission handler
@@ -53,20 +54,22 @@ function AuthHeroWelcome() {
     setIsSubmitting(true);
 
     try {
-      const newUser = await createUser({ email });
+      const newUser = await createUser({ email, password });
       setSuccess(
         `Welcome ${newUser.email || "aboard"}! Account created successfully.`
       );
       setEmail("");
+      setPassword("");
       
       // Store in memory instead of localStorage (or use state management)
       // If you need to use this in another component, consider using Context or state management
       
+      toast.success("Account Created Successfully! Redirecting to login...", );
       setTimeout(() => {
-        navigate("/login", { state: { email: newUser.email } });
-      }, 2000); // Reduced timeout to 2 seconds for better UX
+        navigate("/login")
+      }, 5000);
     } catch (err) {
-      setError(err.message || "Failed to register. Please try again.");
+      toast.error(err.message || "Failed to register. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -76,7 +79,8 @@ function AuthHeroWelcome() {
   return (
     <>
       <AuthHeroImg />
-      <div className="justify-center items-center flex">
+      <ToastContainer />
+      <div className="justify-center items-center flex mb-10">
         <div className="flex justify-center items-center absolute top-0.5 w-auto text-center flex-col">
           <div className="opacity-100 flex justify-center items-center flex-col">
             <img src={Logo} alt="" className="w-2/5" />
@@ -94,14 +98,20 @@ function AuthHeroWelcome() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <input
+                type="password"
+                className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 mt-5 outline-0"
+                placeholder="Enter Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <button
-              className="text-white bg-[#e59a0d] cursor-pointer w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"
-              onClick={() => {
-                navigate(".././verify");
-              }}
+              className={isSubmitting ? "text-white bg-[#f3bd5b] cursor-not-allowed w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2" : "text-white bg-[#e59a0d] cursor-pointer w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"}
+              onClick={handleSubmit}
+              disabled={isSubmitting}
             >
-              Create Account
+              {isSubmitting ? "Submitting..." : "Create Account"}
             </button>
             <div className="mt-5">
               <p>

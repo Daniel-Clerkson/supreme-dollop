@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../API_MODULES/API_ADDRESS";
 import { toast } from "react-toastify";
 import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("personal");
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(null);
-  const [error, setError] = useState(null);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [street, setStreet] = useState("");
@@ -26,10 +27,7 @@ export default function AccountPage() {
 
   const handleLogout = () => {
     localStorage.clear();
-    setTimeout(() => {
-      toast.success("Logged Out Successfully");
-      navigate("/");
-    }, 2000);
+    navigate("/");
   };
 
   const getUserDetails = async () => {
@@ -112,7 +110,10 @@ export default function AccountPage() {
                 onClick={handleLogout}
                 className="w-full text-left px-6 py-4 border-l-4 border-transparent cursor-pointer flex items-center text-[#515050]"
               >
-                Log Out <span className="ml-2"><LogOut /></span>
+                Log Out{" "}
+                <span className="ml-2">
+                  <LogOut />
+                </span>
               </button>
             </div>
           </div>
@@ -363,73 +364,73 @@ export default function AccountPage() {
               )}
               {/* Payment Tab */}
               {activeTab === "payment" && (
-              <div>
-                <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">
-                  Payment Methods
-                </h2>
+                <div>
+                  <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">
+                    Payment Methods
+                  </h2>
 
-                {paymentMethods.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-[#515050] mb-4">
-                      You don't have any payment methods saved.
-                    </p>
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
-                    >
-                      Add Payment Method
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    {paymentMethods.map((method) => (
-                      <div
-                        key={method.id}
-                        className="border rounded-lg overflow-hidden"
+                  {paymentMethods.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p className="text-[#515050] mb-4">
+                        You don't have any payment methods saved.
+                      </p>
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
                       >
-                        <div className="bg-gray-50 p-4 flex justify-between items-center border-b">
-                          <div>
-                            <p className="font-medium">{method.type}</p>
-                            <p className="text-sm text-[#515050]">
-                              **** **** **** {method.lastFour}
-                            </p>
-                            <p className="text-sm text-[#515050]">
-                              Expires: {method.expiryDate}
-                            </p>
-                          </div>
-                          <div className="flex space-x-2">
-                            <button
-                              onClick={() => {
-                                setIsEditing(true);
-                                setSelectedMethod(method);
-                              }}
-                              className="py-1 px-3 bg-gray-200 text-[#515050] rounded-md text-sm"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleRemoveMethod(method.id)}
-                              className="py-1 px-3 bg-red-100 text-red-600 rounded-md text-sm"
-                            >
-                              Remove
-                            </button>
+                        Add Payment Method
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {paymentMethods.map((method) => (
+                        <div
+                          key={method.id}
+                          className="border rounded-lg overflow-hidden"
+                        >
+                          <div className="bg-gray-50 p-4 flex justify-between items-center border-b">
+                            <div>
+                              <p className="font-medium">{method.type}</p>
+                              <p className="text-sm text-[#515050]">
+                                **** **** **** {method.lastFour}
+                              </p>
+                              <p className="text-sm text-[#515050]">
+                                Expires: {method.expiryDate}
+                              </p>
+                            </div>
+                            <div className="flex space-x-2">
+                              <button
+                                onClick={() => {
+                                  setIsEditing(true);
+                                  setSelectedMethod(method);
+                                }}
+                                className="py-1 px-3 bg-gray-200 text-[#515050] rounded-md text-sm"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleRemoveMethod(method.id)}
+                                className="py-1 px-3 bg-red-100 text-red-600 rounded-md text-sm"
+                              >
+                                Remove
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
 
-                    <button
-                      onClick={() => {
-                        setIsEditing(true);
-                        setSelectedMethod(null);
-                      }}
-                      className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
-                    >
-                      Add New Payment Method
-                    </button>
-                  </div>
-                )}
-              </div>
+                      <button
+                        onClick={() => {
+                          setIsEditing(true);
+                          setSelectedMethod(null);
+                        }}
+                        className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
+                      >
+                        Add New Payment Method
+                      </button>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>

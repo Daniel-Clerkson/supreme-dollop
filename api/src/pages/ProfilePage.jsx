@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../API_MODULES/API_ADDRESS";
+import { toast } from "react-toastify";
+import { LogOut } from "lucide-react";
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("personal");
@@ -24,7 +26,10 @@ export default function AccountPage() {
 
   const handleLogout = () => {
     localStorage.clear();
-    alert("Logged out. Redirecting to homepage...");
+    setTimeout(() => {
+      toast.success("Logged Out Successfully");
+      navigate("/");
+    }, 2000);
   };
 
   const getUserDetails = async () => {
@@ -105,9 +110,9 @@ export default function AccountPage() {
               </button>
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-6 py-4 border-l-4 border-transparent flex items-center text-[#515050]"
+                className="w-full text-left px-6 py-4 border-l-4 border-transparent cursor-pointer flex items-center text-[#515050]"
               >
-                Log Out <span className="ml-2">🚪</span>
+                Log Out <span className="ml-2"><LogOut /></span>
               </button>
             </div>
           </div>

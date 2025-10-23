@@ -139,7 +139,7 @@ function AuthHeroWelcome() {
               <div className="border-2 w-40"></div>
             </div>
             <div className="google">
-              <button className="w-4/5 h-12 rounded-2xl bg-yellow-200 pl-4 pr-4 pt-2 pb-2" onClick={()=>(handleSubmit)}>
+              <button className="w-4/5 h-12 rounded-2xl bg-yellow-200 pl-4 pr-4 pt-2 pb-2" onClick={()=>(navigate("/login"))}>
                 <img
                   src={Google}
                   alt=""

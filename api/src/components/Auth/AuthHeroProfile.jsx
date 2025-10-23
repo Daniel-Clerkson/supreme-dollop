@@ -48,6 +48,7 @@ const AuthHeroProfile = () => {
     try {
       await submitUserProfile(formData);
       toast.success("Profile Created Successfully");
+      navigate("/profile");
     } catch (error) {
       toast.error("Failed to create profile. Please try again.");
     } finally {

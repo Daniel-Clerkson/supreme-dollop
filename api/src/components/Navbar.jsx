@@ -76,7 +76,7 @@ export default function Navbar({ onOpenCart }) {
 
             {localStorage.getItem("isLoggedIn") ? (
               <Link to="/profile" aria-label="Login">
-                <button className="text-white font-semibold px-4 py-2 rounded-full bg-[#e59a0d] hover:scale-105 transition-all duration-300">
+                <button className="text-white font-semibold px-4 py-2 rounded-lg bg-[#efba57] hover:scale-105 transition-all duration-300">
                   User
                 </button>
               </Link>

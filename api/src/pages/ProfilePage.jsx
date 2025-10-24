@@ -64,6 +64,8 @@ export default function AccountPage() {
     setCardNumber("");
     setExpiryDate("");
     setCvv("");
+    navigate("/profile")
+    setActiveTab("payment")
   };
 
   // Fetch user details from API

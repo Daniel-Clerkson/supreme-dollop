@@ -15,8 +15,12 @@ export default function AccountPage() {
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [orders, setOrders] = useState([]);
-  const [paymentMethods, setPaymentMethods] = useState([]);
   const [zipCode, setZipCode] = useState("");
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
 
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
@@ -25,11 +29,44 @@ export default function AccountPage() {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/");
+  const handleLogout = ()=>{
+    localStorage.clear()
+    navigate("/")
+  }
+
+  // Remove a card by ID
+  function handleRemoveMethod(cardId) {
+    const storedCards = JSON.parse(localStorage.getItem("paymentCards")) || [];
+
+    const updatedCards = storedCards.filter((card) => card.id !== cardId);
+
+    localStorage.setItem("paymentCards", JSON.stringify(updatedCards));
+    paymentMethods += updatedCards;
+    console.log(`Card with ID ${cardId} removed.`);
+  }
+
+  // Create a new card object
+  const card = {
+    id: Date.now(),
+    cardName,
+    cardNumber,
+    expiryDate,
+    cvv,
   };
 
+  // Save a new card to localStorage
+  const saveCardDetails = () => {
+    const storedCards = JSON.parse(localStorage.getItem("paymentCards")) || [];
+    storedCards.push(card);
+    localStorage.setItem("paymentCards", JSON.stringify(storedCards));
+    console.log("Payment method added successfully!");
+    setCardName("");
+    setCardNumber("");
+    setExpiryDate("");
+    setCvv("");
+  };
+
+  // Fetch user details from API
   const getUserDetails = async () => {
     const details = await fetch(`${API_BASE_URL}/users/profile`, {
       method: "GET",
@@ -38,20 +75,25 @@ export default function AccountPage() {
         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
       },
     });
+
     const userDetails = await details.json();
-    console.log("userDetails", userDetails.user);
     setEmail(userDetails.user.email);
     setFullName(userDetails.user.shippingInformation.fullName);
     setCity(userDetails.user.shippingInformation.city);
     setStreet(userDetails.user.shippingInformation.address);
     setZipCode(userDetails.user.shippingInformation.zipCode);
     setOrders(userDetails.user.orders || []);
-    setPaymentMethods(userDetails.user.paymentMethods || []);
+    // Removed setPaymentMethods here
   };
 
+  // Load user details on mount
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  // Use local variable for payment methods
+  let paymentMethods =
+    JSON.parse(localStorage.getItem("paymentCards")) || [];
 
   const updateUserDetails = async (updatedData) => {};
 
@@ -298,7 +340,7 @@ export default function AccountPage() {
                       <p className="text-[#515050] mb-4">
                         You haven't placed any orders yet.
                       </p>
-                      <button className="py-2 px-6 bg-[#e59a0d] text-white rounded-md">
+                      <button className="py-2 px-6 bg-[#e59a0d] text-white rounded-md" onClick={()=>(navigate("/shop"))}>
                         Start Shopping
                       </button>
                     </div>
@@ -375,8 +417,8 @@ export default function AccountPage() {
                         You don't have any payment methods saved.
                       </p>
                       <button
-                        onClick={() => setIsEditing(true)}
-                        className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
+                        onClick={() => setShowPaymentPopup(true)}
+                        className="mt-4 text-white bg-[#e59a0d] px-6 py-2 rounded-xl hover:bg-[#d88a00]"
                       >
                         Add Payment Method
                       </button>
@@ -390,24 +432,16 @@ export default function AccountPage() {
                         >
                           <div className="bg-gray-50 p-4 flex justify-between items-center border-b">
                             <div>
-                              <p className="font-medium">{method.type}</p>
+                              <p className="font-medium">Card</p>
+                              <p className="font-sm">{method.cardName}</p>
                               <p className="text-sm text-[#515050]">
-                                **** **** **** {method.lastFour}
+                                **** **** **** {method.cardNumber.slice(-4)}
                               </p>
                               <p className="text-sm text-[#515050]">
                                 Expires: {method.expiryDate}
                               </p>
                             </div>
                             <div className="flex space-x-2">
-                              <button
-                                onClick={() => {
-                                  setIsEditing(true);
-                                  setSelectedMethod(method);
-                                }}
-                                className="py-1 px-3 bg-gray-200 text-[#515050] rounded-md text-sm"
-                              >
-                                Edit
-                              </button>
                               <button
                                 onClick={() => handleRemoveMethod(method.id)}
                                 className="py-1 px-3 bg-red-100 text-red-600 rounded-md text-sm"
@@ -420,10 +454,7 @@ export default function AccountPage() {
                       ))}
 
                       <button
-                        onClick={() => {
-                          setIsEditing(true);
-                          setSelectedMethod(null);
-                        }}
+                        onClick={() => setShowPaymentPopup(true)}
                         className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
                       >
                         Add New Payment Method
@@ -436,6 +467,61 @@ export default function AccountPage() {
           </div>
         </div>
       </div>
+      {showPaymentPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl shadow-lg w-11/12 max-w-md p-6 relative">
+            <h2 className="text-xl font-semibold text-center mb-4 text-[#e59a0d]">
+              Add Payment Method
+            </h2>
+
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Cardholder Name"
+                className="w-full h-12 border rounded-xl px-4 outline-none placeholder:text-gray-600"
+                value={cardName}
+                onChange={(e) => setCardName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Card Number"
+                className="w-full h-12 border rounded-xl px-4 outline-none placeholder:text-gray-600"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+              <div className="flex space-x-4">
+                <input
+                  type="text"
+                  placeholder="MM/YY"
+                  className="w-1/2 h-12 border rounded-xl px-4 outline-none placeholder:text-gray-600"
+                  value={expiryDate}
+                  onChange={(e) => setExpiryDate(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="CVV"
+                  className="w-1/2 h-12 border rounded-xl px-4 outline-none placeholder:text-gray-600"
+                  value={cvv}
+                  onChange={(e) => setCvv(e.target.value)}
+                />
+              </div>
+              <button
+                className="w-full h-12 bg-[#e59a0d] text-white rounded-xl hover:bg-[#d88a00] transition"
+                onClick={() => saveCardDetails()}
+              >
+                Save Payment Method
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowPaymentPopup(false)}
+              className="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

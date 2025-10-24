@@ -32,7 +32,6 @@ const LoginPage = () => {
 
       const responseData = await response.json();
       localStorage.setItem("userToken", responseData.user.token);
-      console.log("userToken", responseData.user.token);
       return responseData;
     } catch (error) {
       console.error("Error during POST request:", error);
@@ -57,10 +56,16 @@ const LoginPage = () => {
       setPassword("");
 
       toast.success("Log In Successful");
-      localStorage.setItem("isLoggedIn", "LoggedIn")
-      setTimeout(() => {
-        navigate("/create-profile");
-      }, 5000);
+      localStorage.setItem("isLoggedIn", "LoggedIn");
+      if (localStorage.getItem("isLoggedIn")) {
+        setTimeout(() => {
+          navigate("/profile");
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          navigate("/create-profile");
+        }, 2000);
+      }
     } catch (err) {
       toast.error(err.message || "Failed to register. Please try again.");
     } finally {
@@ -70,43 +75,50 @@ const LoginPage = () => {
 
   return (
     <>
-      <AuthHeroImg />
       <ToastContainer />
-      <div className="justify-center items-center flex mb-10">
-        <div className="flex justify-center items-center absolute top-0.5 w-auto text-center flex-col">
+      <div className="flex justify-center items-center mb-10 min-h-screen px-4">
+        <div className="flex justify-center items-center w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl text-center flex-col">
           <div className="opacity-100 flex justify-center items-center flex-col">
-            <img src={Logo} alt="" className="w-2/5" />
+            <img src={Logo} alt="" className="w-2/3 sm:w-1/2 md:w-2/5" />
           </div>
-          <div className="">
+          <div className="w-full">
             <div>
-              <h1 className="text-2xl">Welcome Back to Vysk Kitchen</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                Welcome Back to Vysk Kitchen
+              </h1>
               <br />
-              <p>Log back into your Vysk Kitchen Account.</p>
+              <p className="text-sm sm:text-base">
+                Log back into your Vysk Kitchen Account.
+              </p>
             </div>
-            <div className="form w-lg mt-5">
+            <div className="form w-full mt-5 flex flex-col items-center">
               <input
                 type="text"
-                className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 m-3 outline-0 placeholder:text-gray-600"
+                className="w-full sm:w-4/5 h-12 rounded-2xl border px-4 py-3 m-2 outline-0 placeholder:text-gray-600"
                 placeholder="Enter Your Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
-                className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 m-3 outline-0 placeholder:text-gray-600"
+                className="w-full sm:w-4/5 h-12 rounded-2xl border px-4 py-3 m-2 outline-0 placeholder:text-gray-600"
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-              className={loggingIn ? "text-white bg-[#f3bd5b] cursor-not-allowed w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2" : "text-white bg-[#e59a0d] cursor-pointer w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"}
-              onClick={handleSubmit}
-              disabled={loggingIn}
-            >
-              {loggingIn ? "Logging In..." : "Log In"}
-            </button>
-              <p className="mt-10">
-                Forgot Your Password ?{" "}
+                className={
+                  loggingIn
+                    ? "text-white bg-[#f3bd5b] cursor-not-allowed w-full sm:w-4/5 h-12 rounded-2xl px-4 py-2"
+                    : "text-white bg-[#e59a0d] cursor-pointer w-full sm:w-4/5 h-12 rounded-2xl px-4 py-2"
+                }
+                onClick={handleSubmit}
+                disabled={loggingIn}
+              >
+                {loggingIn ? "Logging In..." : "Log In"}
+              </button>
+              <p className="mt-8 text-sm">
+                Forgot Your Password?{" "}
                 <span
                   className="hover:underline cursor-pointer text-link"
                   onClick={() => navigate("./forgot-password")}
@@ -114,8 +126,8 @@ const LoginPage = () => {
                   Get Password
                 </span>
               </p>
-              <p className="mt-2">
-                Don't Have an Account ?{" "}
+              <p className="mt-2 text-sm">
+                Don't Have an Account?{" "}
                 <span
                   className="hover:underline cursor-pointer text-link"
                   onClick={() => navigate(".././create-account")}

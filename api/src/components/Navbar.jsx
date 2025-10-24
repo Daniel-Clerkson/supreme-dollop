@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import logo from "../assets/logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "./Cart/CartFunctionality";
@@ -68,7 +68,7 @@ export default function Navbar({ onOpenCart }) {
             >
               <ShoppingCart size={25} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#e59a0d] text-white text-xs px-1 rounded-full">
+                <span className="absolute -top-1 -right-1 w-5 bg-[#e59a0d] text-white text-xs px-1 rounded-full">
                   {totalItems}
                 </span>
               )}
@@ -76,13 +76,13 @@ export default function Navbar({ onOpenCart }) {
 
             {localStorage.getItem("isLoggedIn") ? (
               <Link to="/profile" aria-label="Login">
-                <button className="text-white font-semibold px-4 py-2 rounded-lg bg-[#efba57] hover:scale-105 transition-all duration-300">
-                  User
+                <button className="text-white font-semibold cursor-pointer px-4 py-2 rounded-full bg-[#efba57] hover:scale-105 transition-all duration-300">
+                  <User />
                 </button>
               </Link>
             ) : (
               <Link to="/login">
-              <button className="text-white font-semibold px-4 py-2 rounded-lg bg-[#e59a0d] hover:scale-105 transition-all duration-300">
+              <button className="text-white font-semibold px-4 cursor-pointer py-2 rounded-lg bg-[#e59a0d] hover:scale-105 transition-all duration-300">
                 Login
               </button>
               </Link>

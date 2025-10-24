@@ -82,7 +82,7 @@ export default function Contact() {
         <div className="images grid grid-cols-1 md:grid-cols-3 gap-4 grid-rows-6 mx-5 md:mx-20">
           <img
             className="row-span-6 object-cover w-full h-full rounded-2xl"
-            src="https://www.vyskcatering.co.uk/images/home-section-2-img1.png"
+            src="/Images/grid-1.png"
             alt="Grid 1"
           />
           <div className="p-3 md:p-5 row-span-2 bg-[#222] text-sm md:text-2xl flex items-center text-white rounded-2xl">
@@ -91,12 +91,12 @@ export default function Contact() {
           </div>
           <img
             className="p-3 md:p-5 row-span-4 rounded-2xl w-full h-full"
-            src="https://www.vyskcatering.co.uk/images/home-section-2-img3.png"
+            src="/Images/grid-3.png"
             alt="Grid 3"
           />
           <img
             className="p-3 md:p-5 row-span-4 rounded-2xl w-full h-full"
-            src="https://www.vyskcatering.co.uk/images/home-section-2-img2.png"
+            src="/Images/grid-3.png"
             alt="Grid 2"
           />
           <div className="p-3 md:p-5 row-span-2 bg-white rounded-2xl text-center flex flex-col justify-between items-center mb-5 text-xs md:text-base">
@@ -106,7 +106,7 @@ export default function Contact() {
             memorable!
             <span className="inline-flex items-center justify-between text-xs md:text-sm font-black mt-3">
               <img
-                src=""
+                src="./Images/couple-1.png"
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -134,7 +134,7 @@ export default function Contact() {
         </div>
         <div className="img flex justify-center">
           <img
-            src="../../public/images/kitchen.png"
+            src="/Images/kitchen.png"
             className="px-4 md:px-20 rounded-2xl md:rounded-lg"
             alt=""
           />
@@ -156,11 +156,11 @@ export default function Contact() {
           </button>
         </div>
         <div className="img p-5">
-          <img src="../Images/about.png" alt="" />
+          <img src="/Images/about.png" alt="" />
         </div>
       </section>
       <section>
-        <img src="../Images/kitchen-2.png" alt="" />
+        <img src="/Images/kitchen-2.png" alt="" />
       </section>
       <Footer />
     </>

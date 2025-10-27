@@ -5,6 +5,16 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../API_MODULES/API_ADDRESS";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  ArrowRight,
+  Loader2,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,6 +22,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function postData(url, data) {
     try {
@@ -91,21 +102,35 @@ const LoginPage = () => {
                 Log back into your Vysk Kitchen Account.
               </p>
             </div>
-            <div className="form w-full mt-5 flex flex-col items-center">
+            <div className="input mt-10 mb-10 flex flex-col items-center">
               <input
                 type="text"
-                className="w-full sm:w-4/5 h-12 rounded-2xl border px-4 py-3 m-2 outline-0 placeholder:text-gray-600"
+                className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 outline-0"
                 placeholder="Enter Your Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
-                type="password"
-                className="w-full sm:w-4/5 h-12 rounded-2xl border px-4 py-3 m-2 outline-0 placeholder:text-gray-600"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative w-full sm:w-4/5 ml-0">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="w-full h-12 rounded-2xl border px-4 py-3 m-2 ml-0 outline-0 placeholder:text-gray-600"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-6 top-5 text-gray-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
+
               <button
                 className={
                   loggingIn

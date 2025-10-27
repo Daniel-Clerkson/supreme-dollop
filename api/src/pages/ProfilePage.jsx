@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../API_MODULES/API_ADDRESS";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ export default function AccountPage() {
   const [formData, setFormData] = useState(null);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [orders, setOrders] = useState([]);
@@ -22,6 +24,16 @@ export default function AccountPage() {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
 
+  const updatedFormData = {
+    phone: phoneNumber,
+    shippingInformation: {
+      fullName,
+      city,
+      address,
+      zipCode,
+    },
+  };
+
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
@@ -29,10 +41,10 @@ export default function AccountPage() {
     }
   }, []);
 
-  const handleLogout = ()=>{
-    localStorage.clear()
-    navigate("/")
-  }
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   // Remove a card by ID
   function handleRemoveMethod(cardId) {
@@ -64,8 +76,8 @@ export default function AccountPage() {
     setCardNumber("");
     setExpiryDate("");
     setCvv("");
-    navigate("/profile")
-    setActiveTab("payment")
+    navigate("/profile");
+    setActiveTab("payment");
   };
 
   // Fetch user details from API
@@ -85,6 +97,7 @@ export default function AccountPage() {
     setStreet(userDetails.user.shippingInformation.address);
     setZipCode(userDetails.user.shippingInformation.zipCode);
     setOrders(userDetails.user.orders || []);
+    setPhoneNumber(userDetails.user.phone)
     // Removed setPaymentMethods here
   };
 
@@ -94,13 +107,43 @@ export default function AccountPage() {
   }, []);
 
   // Use local variable for payment methods
-  let paymentMethods =
-    JSON.parse(localStorage.getItem("paymentCards")) || [];
+  let paymentMethods = JSON.parse(localStorage.getItem("paymentCards")) || [];
 
-  const updateUserDetails = async (updatedData) => {};
+  const updateUserDetails = async (updatedData) => {
+    const response = await fetch(`${API_BASE_URL}/users/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      toast.error(
+        errorData.message || `HTTP error! Status: ${response.status}`
+      );
+      console.log(updatedData)
+    }
+
+    let responseData = await response.json();
+    console.log(responseData, updatedData);
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUserDetails(updatedFormData);
+      toast.success("Submitted Successfully");
+    } catch (error) {
+      toast.error("Error Updating Profile");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 md:pt-44">
+      <ToastContainer />
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-2xl font-bold text-[#1e1e1e] mb-8 text-center">
           My Account
@@ -207,10 +250,29 @@ export default function AccountPage() {
                       )}
                     </div>
 
+                    <div className="mb-6">
+                      <label className="block text-[#515050] mb-2">
+                        Phone Number
+                      </label>
+                      {isEditing ? (
+                        <input
+                          name="tel"
+                          type="tel"
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          className="w-full p-3 border border-gray-300 rounded-md"
+                        />
+                      ) : (
+                        <div className="w-full p-3 border border-gray-300 rounded-md bg-gray-50">
+                          {phoneNumber}
+                        </div>
+                      )}
+                    </div>
+
                     {isEditing ? (
                       <div className="flex space-x-4">
                         <button
-                          type="submit"
+                          onClick={(e) => handleUpdateSubmit(e)}
                           className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
                         >
                           Save Changes
@@ -342,7 +404,10 @@ export default function AccountPage() {
                       <p className="text-[#515050] mb-4">
                         You haven't placed any orders yet.
                       </p>
-                      <button className="py-2 px-6 bg-[#e59a0d] text-white rounded-md" onClick={()=>(navigate("/shop"))}>
+                      <button
+                        className="py-2 px-6 bg-[#e59a0d] text-white rounded-md"
+                        onClick={() => navigate("/shop")}
+                      >
                         Start Shopping
                       </button>
                     </div>

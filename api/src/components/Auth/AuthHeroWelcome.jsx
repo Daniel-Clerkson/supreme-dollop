@@ -5,15 +5,25 @@ import Google from "../../assets/Images/google.png";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../API_MODULES/API_ADDRESS";
 import { useState } from "react";
-import {ToastContainer, toast} from "react-toastify"
+import { ToastContainer, toast } from "react-toastify";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  ArrowRight,
+  Loader2,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 function AuthHeroWelcome() {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Function to make POST request
   async function postData(url, data) {
@@ -60,13 +70,13 @@ function AuthHeroWelcome() {
       );
       setEmail("");
       setPassword("");
-      
+
       // Store in memory instead of localStorage (or use state management)
       // If you need to use this in another component, consider using Context or state management
-      
-      toast.success("Account Created Successfully! Redirecting to login...", );
+
+      toast.success("Account Created Successfully! Redirecting to login...");
       setTimeout(() => {
-        navigate("/login")
+        navigate("/login");
       }, 5000);
     } catch (err) {
       toast.error(err.message || "Failed to register. Please try again.");
@@ -90,7 +100,7 @@ function AuthHeroWelcome() {
               <h1 className="text-2xl">Welcome to Vysk Kitchen</h1>
               <p>Type your email address to log in or create a Vysk account</p>
             </div>
-            <div className="input mt-10 mb-10">
+            <div className="input mt-10 mb-10 flex flex-col items-center">
               <input
                 type="text"
                 className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 outline-0"
@@ -98,18 +108,36 @@ function AuthHeroWelcome() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
-                type="password"
-                className="w-4/5 h-12 rounded-2xl border pl-4 pr-4 pt-4 pb-4 mt-5 outline-0"
-                placeholder="Enter Your Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative w-full sm:w-4/5 ml-0">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="w-full h-12 rounded-2xl border px-4 py-3 m-2 ml-0 outline-0 placeholder:text-gray-600"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-6 top-5 text-gray-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
             </div>
             <button
-              className={isSubmitting ? "text-white bg-[#f3bd5b] cursor-not-allowed w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2" : "text-white bg-[#e59a0d] cursor-pointer w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"}
+              className={
+                isSubmitting
+                  ? "text-white bg-[#f3bd5b] cursor-not-allowed w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"
+                  : "text-white bg-[#e59a0d] cursor-pointer w-4/5 h-12 rounded-2xl pl-4 pr-4 pt-2 pb-2"
+              }
               onClick={handleSubmit}
               disabled={isSubmitting}
+              onMouseDown={() => setShowPassword(!showPassword)}
             >
               {isSubmitting ? "Submitting..." : "Create Account"}
             </button>
@@ -139,13 +167,16 @@ function AuthHeroWelcome() {
               <div className="border-2 w-40"></div>
             </div>
             <div className="google">
-              <button className="w-4/5 h-12 rounded-2xl bg-yellow-200 pl-4 pr-4 pt-2 pb-2" onClick={()=>(navigate("/login"))}>
+              <button
+                className="w-4/5 h-12 rounded-2xl bg-yellow-200 pl-4 pr-4 pt-2 pb-2"
+                onClick={() => navigate("/login")}
+              >
                 <img
                   src={Google}
                   alt=""
                   className="absolute w-6 rounded-full"
                 />
-                Sign Up With Google
+                Sign Up
               </button>
             </div>
           </div>
@@ -153,6 +184,6 @@ function AuthHeroWelcome() {
       </div>
     </>
   );
-};
+}
 
 export default AuthHeroWelcome;

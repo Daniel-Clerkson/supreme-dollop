@@ -24,6 +24,8 @@ import Privacy from "./pages/Legal Page/Privacy";
 import ProductPage from "./components/Shop/Product";
 import AccountPage from "./pages/ProfilePage";
 import AuthHeroProfile from "./components/Auth/AuthHeroProfile";
+import AdminDashboard from "./components/AdminPage/AdminPage";
+
 
 const App = () => {
   const router = createBrowserRouter(
@@ -46,6 +48,7 @@ const App = () => {
         <Route path="/profile" element={<AccountPage />} />
         <Route path="/terms-condition" element={<Privacy />} />
         <Route path="/create-account" element={<CreateUserForm />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>
